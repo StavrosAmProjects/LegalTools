@@ -33,4 +33,4 @@ jobs:
           # Co-authored-by trailers (e.g. Claude). Allowlisting it suppresses
           # the synthetic co-author from the CLA check; the PR opener still
           # has to sign.
-          allowlist: "iainmcgin,dependabot[bot],github-actions[bot],renovate[bot],noreply@anthropic.com"
+          allowlist: "iainmcgin,dependabot[bot],github-actions[bot],renovate[bot],noreply@anthropic.com,google-labs-jules[bot],161369871+google-labs-jules[bot]@users.noreply.github.com"
