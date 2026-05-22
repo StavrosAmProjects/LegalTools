@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Playfair Display", "Times New Roman", serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+@layer base {
+  body {
+    @apply antialiased selection:bg-[#E2B13C]/30;
+  }
+}
+
+@layer utilities {
+  .animate-shimmer {
+    background: linear-gradient(
+      90deg,
+      rgba(226, 177, 60, 0.1) 25%,
+      rgba(226, 177, 60, 0.4) 50%,
+      rgba(226, 177, 60, 0.1) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite;
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+/* Accessibility: Focus styles */
+:focus-visible {
+  @apply outline-none ring-2 ring-[#E2B13C] ring-offset-2;
+}
+
+/* Custom Scrollbar for Law Firm Aesthetic */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-[#F8F9FA];
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-[#D1D5DB] hover:bg-[#1A1C1E] transition-colors;
+}

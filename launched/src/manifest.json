@@ -1,0 +1,1200 @@
+{
+  "practice_areas": [
+    {
+      "id": "ai-governance-legal",
+      "name": "Ai Governance",
+      "description": "AI Governance Plugin",
+      "skills": [
+        {
+          "name": "ai-inventory",
+          "description": "> EU AI Act per-system inventory \u2014 track each AI system's role (provider, deployer, importer, distributor, authorized representative, product manufacturer) and risk tier (prohibited, high-risk, limited, minimal, GPAI, GPAI+systemic). Role and tier are assessed per system, not per company. Use when the user says \"ai inventory\", \"add an ai system\", what systems do we have\", \"classify this ai system\", \"eu ai act register\", or \"ai system registry\".",
+          "argument-hint": "[list | add | edit <id> | classify <id> | show <id>]",
+          "id": "ai-inventory",
+          "command": "/ai-governance-legal:ai-inventory"
+        },
+        {
+          "name": "aia-generation",
+          "description": "> Run an AI impact assessment \u2014 structured intake, risk analysis, regulatory classification per regime in scope, policy consistency diff, and recommendation with conditions. Uses the house-style structure learned from the seed impact assessment in `~/.claude/plugins/config/claude-for-legal/ai-governance-legal/CLAUDE.md`. Use when user says \"impact assessment for\", \"assess this AI use case\", \"run an AIA\", \"generate an AIA\", \"we need to document this AI system\", \"AI risk assessment for X\", or follows a conditional triage result.",
+          "argument-hint": "[describe the use case or system, or pass a triage result]",
+          "id": "aia-generation",
+          "command": "/ai-governance-legal:aia-generation"
+        },
+        {
+          "name": "cold-start-interview",
+          "description": "> Run the cold-start interview \u2014 learns your AI governance practice and writes `~/.claude/plugins/config/claude-for-legal/ai-governance-legal/CLAUDE.md` from your AI policy, a reference impact assessment, and key vendor AI agreements. Use when the practice profile is missing or contains `[PLACEHOLDER]` markers, or when user says \"set up ai governance plugin\", \"onboard me\", \"configure ai governance\".",
+          "argument-hint": "[--redo | --check-integrations]",
+          "id": "cold-start-interview",
+          "command": "/ai-governance-legal:cold-start-interview"
+        },
+        {
+          "name": "customize",
+          "description": "> Guided customization of your AI governance practice profile \u2014 change one thing without re-running the whole cold-start interview. Adjust risk posture, escalation contacts, use-case registry entries, vendor AI positions, AI policy commitments, impact-assessment house style, or matter workspace paths. Use when the user says \"change my [thing]\", \"update my profile\", edit my config\", \"tune my playbook\", or \"customize\".",
+          "argument-hint": "[section name, or describe what you want to change]",
+          "id": "customize",
+          "command": "/ai-governance-legal:customize"
+        },
+        {
+          "name": "matter-workspace",
+          "description": "> Manage matter workspaces \u2014 new, list, switch, close, or detach (practice-level). File-management logic for keeping one client or engagement's context separate from every other. Use when working across multiple clients or matters, when the user says \"new matter\", \"switch matter\", \"list matters\", \"close matter\", or when any substantive skill needs to know which matter it's working in.",
+          "argument-hint": "<new | list | switch | close | none> [slug]",
+          "id": "matter-workspace",
+          "command": "/ai-governance-legal:matter-workspace"
+        },
+        {
+          "name": "policy-monitor",
+          "description": "> Keep the AI policy current with practice \u2014 weekly sweep of saved AIAs, triage results, and vendor reviews to find policy drift, or direct query for a proposed new AI practice. Use when user says \"policy sweep\", \"does our AI policy cover this\", \"we want to start doing X \u2014 does the policy need updating\", \"run the policy monitor\", or on a recurring schedule.",
+          "argument-hint": "[describe a proposed new AI practice \u2014 or omit / use --sweep for crawl mode]",
+          "id": "policy-monitor",
+          "command": "/ai-governance-legal:policy-monitor"
+        },
+        {
+          "name": "policy-starter",
+          "description": "> Draft a firm AI usage policy from published model policies, adapted to your practice profile \u2014 a research-and-synthesis tool whose output is a draft for attorney review and adoption, not a finished policy. Use when user says \"draft an AI policy\", \"we need an AI policy\", \"build an AI usage policy\", \"our firm needs a GenAI policy\", or similar requests to generate a first-cut internal AI policy.",
+          "argument-hint": "[optional \u2014 scope hint, e.g. 'firm-wide', 'legal team only', 'update existing']",
+          "id": "policy-starter",
+          "command": "/ai-governance-legal:policy-starter"
+        },
+        {
+          "name": "reg-gap-analysis",
+          "description": "> Diff a new AI regulation or guidance against your current governance posture \u2014 surfaces gaps, priorities, and a remediation plan with owners and deadlines. Use when an AI regulation moves (or you learn about one you missed), or when user says \"new reg just dropped\", \"does [regulation] affect us\", \"gap analysis for EU AI Act\", \"compliance check against [AI law or guidance]\", or pastes regulatory text.",
+          "argument-hint": "[regulation name, or paste regulatory text, or attach a document]",
+          "id": "reg-gap-analysis",
+          "command": "/ai-governance-legal:reg-gap-analysis"
+        },
+        {
+          "name": "use-case-triage",
+          "description": "> Classify a proposed AI use case against your registry \u2014 approved, conditional, or not approved \u2014 and produce required conditions and next steps. Flags cross-plugin handoffs to privacy or product counsel. Use when user says \"triage this use case\", \"can we use AI for X\", \"is this approved\", \"what do we need to do to use AI for X\".",
+          "argument-hint": "[describe the use case, or 'batch' to triage a list]",
+          "id": "use-case-triage",
+          "command": "/ai-governance-legal:use-case-triage"
+        },
+        {
+          "name": "vendor-ai-review",
+          "description": "> Review vendor AI terms \u2014 agreement, addendum, or ToS AI provisions \u2014 against your governance positions; flag training-on-data, liability, model changes, and AI policy consistency. Use when user says \"review this AI agreement\", \"check OpenAI terms\", what did we agree to with [vendor]\", \"vendor sent an AI addendum\", \"is this AI contract okay\", or attaches vendor AI terms.",
+          "argument-hint": "[vendor name, or attach the contract]",
+          "id": "vendor-ai-review",
+          "command": "/ai-governance-legal:vendor-ai-review"
+        }
+      ],
+      "agents": []
+    },
+    {
+      "id": "commercial-legal",
+      "name": "Commercial",
+      "description": "Commercial Counsel Plugin",
+      "skills": [
+        {
+          "name": "amendment-history",
+          "description": "> Trace how a contract has changed across its base agreement and all amendments \u2014 either a summary of all changes over time, or a provision trace for a specific clause. Use when the user says \"what changed in this contract over time\", \"show me the amendment history\", \"where's the latest [clause]\", \"how has [provision] evolved\", or uploads multiple versions of an agreement.",
+          "argument-hint": "[file(s) | [CLM ID (coming soon)] | [repository link (coming soon)]] [--provision <clause name>]",
+          "id": "amendment-history",
+          "command": "/commercial-legal:amendment-history"
+        },
+        {
+          "name": "cold-start-interview",
+          "description": "> Run the cold-start interview to learn your commercial contracts practice and write your team practice profile. Use on first use of the plugin, when `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md` is missing or still contains template placeholders, or when the user says \"set up the plugin\", \"configure commercial contracts\", \"onboard me\", or \"let's get started\". This is the only skill that should run on a fresh install.",
+          "argument-hint": "[--redo to re-run on an already-configured plugin] [--check-integrations to re-probe integrations only] [--side sales|purchasing to re-run only the playbook section for one side]",
+          "id": "cold-start-interview",
+          "command": "/commercial-legal:cold-start-interview"
+        },
+        {
+          "name": "customize",
+          "description": "> Guided customization of your commercial contracts practice profile \u2014 change one thing without re-running the whole cold-start interview. Adjust risk posture, escalation contacts, playbook positions, NDA triage preferences, house style, review preferences, or matter workspace paths. Use when the user says \"change my [thing]\", \"update my profile\", \"edit my playbook\", tune my config\", or \"customize\".",
+          "argument-hint": "[section name, or describe what you want to change]",
+          "id": "customize",
+          "command": "/commercial-legal:customize"
+        },
+        {
+          "name": "escalation-flagger",
+          "description": "> Route a contract issue to the right approver per the escalation matrix in `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`, and draft the ask. Use when the user says \"who needs to approve this\", \"escalate this\", \"does this need GC sign-off\", route this for approval\", or when another skill finds an issue that exceeds the reviewer's authority.",
+          "argument-hint": "[describe the issue, or reference a review memo]",
+          "id": "escalation-flagger",
+          "command": "/commercial-legal:escalation-flagger"
+        },
+        {
+          "name": "matter-workspace",
+          "description": "> Manage matter workspaces \u2014 new, list, switch, close, or detach (practice-level). Use when a multi-client practitioner needs to create a matter, switch the active matter, list matters, archive a matter, or detach to practice-level context, or when another skill needs to know which matter it's working in.",
+          "argument-hint": "<new | list | switch | close | none> [slug]",
+          "id": "matter-workspace",
+          "command": "/commercial-legal:matter-workspace"
+        },
+        {
+          "name": "nda-review",
+          "description": "> Reference: fast triage of inbound NDAs into GREEN / YELLOW / RED so the team only spends lawyer time on the ones that need it. Built for sales and BD to self-serve before pinging legal. Loaded by /commercial-legal:review when an NDA is detected.",
+          "user-invocable": "false",
+          "id": "nda-review",
+          "command": "/commercial-legal:nda-review"
+        },
+        {
+          "name": "renewal-tracker",
+          "description": "> Show contracts with cancel-by deadlines coming up and warn before notice windows close, working from a maintained renewal register. Use when the user asks \"what's renewing soon\", \"what renewals are due\", \"did we miss a cancellation window\", \"add this to the renewal tracker\", or on a scheduled basis. Receives handoffs from saas-msa-review.",
+          "argument-hint": "[--days N to change window | --missed for lapsed windows]",
+          "id": "renewal-tracker",
+          "command": "/commercial-legal:renewal-tracker"
+        },
+        {
+          "name": "review",
+          "description": "> Review a vendor agreement, NDA, or SaaS subscription against your playbook. Identifies the agreement structure from titles, routes to the right review skill (vendor-agreement-review, nda-review, saas-msa-review), and integrates the output into a single memo. Use when the user says \"review this contract\", \"check this MSA\", \"is this NDA okay\", \"look at this SaaS agreement\", or attaches an inbound agreement for review.",
+          "argument-hint": "[file path | Drive link | [CLM ID] | paste text]",
+          "id": "review",
+          "command": "/commercial-legal:review"
+        },
+        {
+          "name": "review-proposals",
+          "description": "> Review and approve (or reject) pending playbook update proposals from the playbook-monitor agent and apply approved changes to the practice profile. Use when the playbook-monitor agent has surfaced proposals, when the user says review playbook proposals\", \"what playbook updates are pending\", or wants to step through deviation-driven playbook changes.",
+          "argument-hint": "[no arguments needed \u2014 works from the pending proposals file]",
+          "id": "review-proposals",
+          "command": "/commercial-legal:review-proposals"
+        },
+        {
+          "name": "saas-msa-review",
+          "description": "> Reference: review of SaaS subscription agreements with attention to the terms that matter most in subscription deals \u2014 auto-renewal mechanics, price escalation, data portability, uptime SLAs, and subprocessor rights. Loaded by /commercial-legal:review when a SaaS or subscription agreement is detected.",
+          "user-invocable": "false",
+          "id": "saas-msa-review",
+          "command": "/commercial-legal:saas-msa-review"
+        },
+        {
+          "name": "stakeholder-summary",
+          "description": "> Translates a contract review into a summary the business stakeholder will actually read. Not a legal memo \u2014 a two-minute answer to \"can I sign this and what do I need to know.\" Use when user says \"summarize for the business\", write this up for [stakeholder]\", \"explain this to procurement\", \"non-legal summary\", or when a review is done and needs to go to someone outside legal.",
+          "id": "stakeholder-summary",
+          "command": "/commercial-legal:stakeholder-summary"
+        },
+        {
+          "name": "vendor-agreement-review",
+          "description": "> Reference: review of an inbound vendor agreement against the team playbook in `~/.claude/plugins/config/claude-for-legal/commercial-legal/CLAUDE.md`. Flags deviations, assesses risk, generates specific redline language, and routes to the right approver. Loaded by /commercial-legal:review when a vendor MSA, services agreement, or similar is detected.",
+          "user-invocable": "false",
+          "id": "vendor-agreement-review",
+          "command": "/commercial-legal:vendor-agreement-review"
+        }
+      ],
+      "agents": [
+        {
+          "id": "deal-debrief",
+          "name": "Deal Debrief",
+          "path": "commercial-legal/agents/deal-debrief.md"
+        },
+        {
+          "id": "playbook-monitor",
+          "name": "Playbook Monitor",
+          "path": "commercial-legal/agents/playbook-monitor.md"
+        },
+        {
+          "id": "renewal-watcher",
+          "name": "Renewal Watcher",
+          "path": "commercial-legal/agents/renewal-watcher.md"
+        }
+      ]
+    },
+    {
+      "id": "corporate-legal",
+      "name": "Corporate",
+      "description": "Corporate Counsel Plugin",
+      "skills": [
+        {
+          "name": "ai-tool-handoff",
+          "description": "> Detects when Luminance, Kira, or a similar bulk-review tool is in use, hands off the high-volume clause extraction to it, and QAs its output per the trust level in `~/.claude/plugins/config/claude-for-legal/corporate-legal/CLAUDE.md`. Use when user says \"send to Luminance\", bulk review\", \"AI extraction\", or when diligence-issue-extraction hits a high-volume category.",
+          "id": "ai-tool-handoff",
+          "command": "/corporate-legal:ai-tool-handoff"
+        },
+        {
+          "name": "board-minutes",
+          "description": "> Drafts board or committee meeting minutes in your house format. Auto-detects upcoming board and committee meetings from your calendar, asks for the agenda and any slides or pre-read materials, and produces a complete draft in the format learned from your seed minutes. Also handles written consents in lieu of meetings. Trigger: \"board minutes\", \"draft minutes\", \"upcoming board meeting\", \"committee minutes\", \"written consent\", or calendar detection of an upcoming board or committee event.",
+          "id": "board-minutes",
+          "command": "/corporate-legal:board-minutes"
+        },
+        {
+          "name": "closing-checklist",
+          "description": "> What's blocking close \u2014 maintain the closing checklist with status, critical path, and days to close. Self-updating: ingests new items from diligence findings and schedule builds, tracks status, surfaces what's blocking. Use when user says \"closing checklist\", \"what's left to close\", \"checklist status\", \"add to the checklist\", or on a scheduled status pull.",
+          "argument-hint": "[optional: item ID + status update]",
+          "id": "closing-checklist",
+          "command": "/corporate-legal:closing-checklist"
+        },
+        {
+          "name": "cold-start-interview",
+          "description": "> House cold-start interview (request list + prior memo), or --new-deal for deal-specific context. Modular: identifies which practice areas apply (M&A, Board & Secretary, Public Company, Entity Management), then asks targeted questions for each active module and writes only the relevant sections to the plugin config. Use on fresh install, when CLAUDE.md still has [PLACEHOLDER] markers, when starting a new deal, or to re-check integrations or refresh a module.",
+          "argument-hint": "[--redo | --new-deal | --check-integrations | --module [m&a | board | public | entities]]",
+          "id": "cold-start-interview",
+          "command": "/corporate-legal:cold-start-interview"
+        },
+        {
+          "name": "customize",
+          "description": "> Guided customization of your corporate practice profile \u2014 change one thing without re-running the whole cold-start interview. Adjust risk posture, escalation contacts, active modules (M&A / Board / Public Company / Entity Management), materiality thresholds, disclosure schedule format, consent precedents, or matter workspace paths. Use when the user says \"change my [thing]\", \"update my profile\", \"edit my config\", or \"customize\".",
+          "argument-hint": "[section name, or describe what you want to change]",
+          "id": "customize",
+          "command": "/corporate-legal:customize"
+        },
+        {
+          "name": "deal-team-summary",
+          "description": "> Aggregate diligence findings into a deal team briefing at the right altitude for the audience \u2014 exec summary for leadership, working summary for the team. Use when user says \"brief the deal team\", \"what's the state of diligence\", summarize findings for [audience]\", \"deal update\", or on the briefing cadence.",
+          "id": "deal-team-summary",
+          "command": "/corporate-legal:deal-team-summary"
+        },
+        {
+          "name": "diligence-issue-extraction",
+          "description": "> Read VDR documents and extract issues per house categories and materiality thresholds, producing findings in house memo format. Use when user says review the data room\", \"extract issues from [folder]\", \"diligence review\", what's in the VDR\", or points at VDR documents.",
+          "argument-hint": "[VDR folder path or category name]",
+          "id": "diligence-issue-extraction",
+          "command": "/corporate-legal:diligence-issue-extraction"
+        },
+        {
+          "name": "entity-compliance",
+          "description": "> Entity compliance tracker \u2014 initialize, report upcoming deadlines, update status, run health audit, export to CSV. Maintains a compliance-tracker.yaml built from the entity table, calculates filing deadlines by entity and jurisdiction, and surfaces what's due in the next 30/60/90 days. Use when user says \"entity compliance\", \"filing deadlines\", \"annual reports due\", entity tracker\", \"what filings are due\", \"entity health\", or \"good standing\".",
+          "argument-hint": "[--init | --report [--days N] | --update [--from-report] | --sweep | --audit | --export [--format csv|table]]",
+          "id": "entity-compliance",
+          "command": "/corporate-legal:entity-compliance"
+        },
+        {
+          "name": "integration-management",
+          "description": "> Post-closing M&A integration tracker \u2014 phased workplan, consent tracking, contract assignment at scale, weekly status reports. Initializes from whatever deal artifacts are available (purchase agreement, deal summary, closing checklist) and connects to deal-context.md and closing-checklist.yaml from the M&A cold-start. Use when user says \"integration\", \"post-close\", \"post-closing\", consents outstanding\", \"contract assignment\", \"integration status\", or what's left on the deal\".",
+          "argument-hint": "[--init | --contracts | --report | --update | --export [--format csv|table] [--section all|consents|contracts|workplan]] [--deal [code]]",
+          "id": "integration-management",
+          "command": "/corporate-legal:integration-management"
+        },
+        {
+          "name": "material-contract-schedule",
+          "description": "> Build the material contracts disclosure schedule from diligence findings, applying the purchase agreement's Material Contract definition and formatting per the agreement's schedule format. Use when user says \"build the contracts schedule\", \"disclosure schedule\", \"schedule 3.X\", \"material contracts list\", or when drafting disclosure schedules.",
+          "argument-hint": "[purchase agreement path, or paste the Material Contract definition]",
+          "id": "material-contract-schedule",
+          "command": "/corporate-legal:material-contract-schedule"
+        },
+        {
+          "name": "matter-workspace",
+          "description": "> Manage matter workspaces \u2014 create, list, switch, close, or detach the active matter so multi-client practitioners keep one client's context separate from every other. Read by any substantive skill that needs to know what matter it's working in. Use when user says \"new matter\", \"switch matter\", \"list matters\", close matter\", or wants to work at practice-level only.",
+          "argument-hint": "<new | list | switch | close | none> [slug]",
+          "id": "matter-workspace",
+          "command": "/corporate-legal:matter-workspace"
+        },
+        {
+          "name": "tabular-review",
+          "description": "> Tabular review \u2014 one row per document, one column per data point, every cell cited to source. Built for M&A diligence (\"review these 200 target contracts for change-of-control, assignment, and MAC clauses\") but works for any batch review that needs a spreadsheet out the other end. Use when user says \"tabular review\", \"review grid\", \"build a grid\", \"extract these fields from these contracts\", \"review these documents for X, Y, Z\", \"give me a spreadsheet of\", batch review\", or points at a folder of documents and asks to compare them.",
+          "id": "tabular-review",
+          "command": "/corporate-legal:tabular-review"
+        },
+        {
+          "name": "written-consent",
+          "description": "> Draft a unanimous written consent of the board or a committee in house format, with precedent search from the consents repository. Handles multi-resolution consents, director conflict flags, state-law notice requirements, and signatory tracking, with a built-in scope warning for major one-off actions. Use when user says \"written consent\", \"unanimous consent\", \"board consent\", \"consent in lieu\", \"UWC\", or describes an action needing board approval without a meeting.",
+          "argument-hint": "[describe the action needing board approval]",
+          "id": "written-consent",
+          "command": "/corporate-legal:written-consent"
+        }
+      ],
+      "agents": [
+        {
+          "id": "dataroom-watcher",
+          "name": "Dataroom Watcher",
+          "path": "corporate-legal/agents/dataroom-watcher.md"
+        }
+      ]
+    },
+    {
+      "id": "employment-legal",
+      "name": "Employment",
+      "description": "Employment Counsel Plugin",
+      "skills": [
+        {
+          "name": "cold-start-interview",
+          "description": "> Cold-start setup \u2014 learns your jurisdictional footprint and escalation rules from your handbook and termination memos. Asks which states and countries have employees, reads seed documents, and builds a jurisdiction-aware escalation table. Use on fresh install, when CLAUDE.md still has [PLACEHOLDER] markers, or when re-running with --redo or --check-integrations.",
+          "argument-hint": "[--redo | --check-integrations]",
+          "id": "cold-start-interview",
+          "command": "/employment-legal:cold-start-interview"
+        },
+        {
+          "name": "customize",
+          "description": "> Guided customization of your employment practice profile \u2014 change one thing without re-running the whole cold-start interview. Adjust jurisdictional footprint, risk posture, escalation contacts, hiring review rules, termination review rules, handbook positions, investigation preferences, or matter workspace paths. Use when the user says \"change my [thing]\", add a jurisdiction\", \"update my profile\", \"edit my config\", or \"customize\".",
+          "argument-hint": "[section name, or describe what you want to change]",
+          "id": "customize",
+          "command": "/employment-legal:customize"
+        },
+        {
+          "name": "expansion-kickoff",
+          "description": "> Kick off international expansion planning for a new country \u2014 gathers intake, runs EOR vs. entity framing, drafts cross-functional questions, surfaces country-specific flags, and creates a persistent tracker. Use when someone says \"we're hiring in [country]\", \"expansion to [country]\", or \"first hire in [country]\".",
+          "argument-hint": "[country name]",
+          "id": "expansion-kickoff",
+          "command": "/employment-legal:expansion-kickoff"
+        },
+        {
+          "name": "expansion-update",
+          "description": "> Update the status of an in-progress international expansion project \u2014 recalculates what is now unblocked, flags anything overdue, and surfaces the next priorities. Use when work has happened since the last session and the expansion tracker needs to reflect the current state.",
+          "argument-hint": "[country name]",
+          "id": "expansion-update",
+          "command": "/employment-legal:expansion-update"
+        },
+        {
+          "name": "handbook-updates",
+          "description": "> Diff a proposed handbook change against the current version, flag ripple effects and state supplement impacts. Use when user says \"update the handbook\", \"add this to the handbook\", \"handbook change\", or has a policy ready for insertion.",
+          "id": "handbook-updates",
+          "command": "/employment-legal:handbook-updates"
+        },
+        {
+          "name": "hiring-review",
+          "description": "> Review an offer letter and any restrictive covenants \u2014 jurisdiction check included. Substantive rules (covenant enforceability, pay-transparency, salary-history limits, exemption criteria) are researched per hire, not stored. Use when the user says \"review this offer\", \"can we use a non-compete here\", \"check this offer letter\", \"hiring in [state]\", or attaches an offer.",
+          "argument-hint": "[offer letter file, or describe the hire]",
+          "id": "hiring-review",
+          "command": "/employment-legal:hiring-review"
+        },
+        {
+          "name": "internal-investigation",
+          "description": "> Reference: shared framework for managing internal investigations from intake through final memo \u2014 privileged investigation log, document processing with needle-finding, source coverage tracking, Q&A against the log, memo drafting, and audience summaries. Loaded by /investigation-open, /investigation-add, /investigation-query, /investigation-memo, and /investigation-summary; not invoked directly.",
+          "user-invocable": "false",
+          "id": "internal-investigation",
+          "command": "/employment-legal:internal-investigation"
+        },
+        {
+          "name": "international-expansion",
+          "description": "> Reference: implementation-planning framework for international hiring \u2014 EOR vs. entity decision framing, cross-functional triggers for tax/finance/HR, structured outside-counsel briefing requests, and a persistent gap tracker. Loaded by /expansion-kickoff and /expansion-update; not invoked directly.",
+          "user-invocable": "false",
+          "id": "international-expansion",
+          "command": "/employment-legal:international-expansion"
+        },
+        {
+          "name": "investigation-add",
+          "description": "> Add data to an open investigation \u2014 documents, interview notes, or observations. Processes batches against the documented pull criteria, surfaces significant items, and logs everything reviewed for coverage verification. Use when new evidence, interview notes, or document productions come in for an open investigation.",
+          "argument-hint": "[matter name or slug, then paste or attach data]",
+          "id": "investigation-add",
+          "command": "/employment-legal:investigation-add"
+        },
+        {
+          "name": "investigation-memo",
+          "description": "> Draft or update the privileged investigation memo from the investigation log. Use when an investigation is far enough along to write the first memo cut, or when new data has been added and the existing draft needs updating.",
+          "argument-hint": "[matter name]",
+          "id": "investigation-memo",
+          "command": "/employment-legal:investigation-memo"
+        },
+        {
+          "name": "investigation-open",
+          "description": "> Open a new internal investigation matter \u2014 runs intake, generates the sources checklist, and creates the persistent investigation log. Use when a complaint or allegation comes in and the attorney needs to stand up a privileged investigation workspace.",
+          "argument-hint": "[brief description of the allegation]",
+          "id": "investigation-open",
+          "command": "/employment-legal:investigation-open"
+        },
+        {
+          "name": "investigation-query",
+          "description": "> Ask questions against an open investigation log \u2014 what witnesses said, where accounts conflict, what gaps exist, what the strongest evidence is on each issue. Use when the attorney needs to query the investigation record without re-reading every entry.",
+          "argument-hint": "[matter name] [question]",
+          "id": "investigation-query",
+          "command": "/employment-legal:investigation-query"
+        },
+        {
+          "name": "investigation-summary",
+          "description": "> Draft an audience-specific summary from the privileged investigation memo \u2014 HR, leadership, or outside counsel versions. Use when an investigation memo needs to be communicated to an audience that should not see the full privileged work product.",
+          "argument-hint": "[matter name] [audience: hr / leadership / outside-counsel]",
+          "id": "investigation-summary",
+          "command": "/employment-legal:investigation-summary"
+        },
+        {
+          "name": "leave-tracker",
+          "description": "> Check open leaves for deadline alerts and required decisions. Surfaces only the leaves that require an action and explains why \u2014 not a status board. Use weekly, or whenever the attorney needs to know which leaves have upcoming designation, certification, or exhaustion deadlines.",
+          "argument-hint": "[no arguments \u2014 works from HRIS or leave-register.yaml]",
+          "id": "leave-tracker",
+          "command": "/employment-legal:leave-tracker"
+        },
+        {
+          "name": "log-leave",
+          "description": "> Add a new leave to the leave register with the minimum information needed to start tracking deadlines. Use when an employee goes on leave and you want the tracker to watch designation, certification, and exhaustion clocks from day one.",
+          "argument-hint": "[describe the leave \u2014 employee/role, type, jurisdiction, start date]",
+          "id": "log-leave",
+          "command": "/employment-legal:log-leave"
+        },
+        {
+          "name": "matter-workspace",
+          "description": "> Manage matter workspaces \u2014 new, list, switch, close, or detach (practice- level). Creates, lists, switches, closes, and detaches the active matter so context from one client engagement never leaks into another. Use when a multi-client practitioner says \"new matter\", \"switch matter\", \"list my matters\", \"close this matter\", or needs to manage which matter is active.",
+          "argument-hint": "<new | list | switch | close | none> [slug]",
+          "id": "matter-workspace",
+          "command": "/employment-legal:matter-workspace"
+        },
+        {
+          "name": "policy-drafting",
+          "description": "> Draft an employment policy with state supplements where law differs across the jurisdictional footprint. Use when the user says \"draft a [topic] policy\", \"we need a policy on\", \"update our [topic] policy\", or names a policy gap.",
+          "argument-hint": "[policy topic \u2014 e.g., 'remote work', 'parental leave', 'PTO']",
+          "id": "policy-drafting",
+          "command": "/employment-legal:policy-drafting"
+        },
+        {
+          "name": "termination-review",
+          "description": "> Termination review \u2014 high-risk flag detection, severance + release, and final pay timing by jurisdiction. Jurisdiction-specific rules and release consideration periods are researched per review, not stored. Use when the user says \"reviewing a termination\", \"can we fire this person\", \"term review\", or describes a termination scenario.",
+          "argument-hint": "[describe the termination, or attach documentation]",
+          "id": "termination-review",
+          "command": "/employment-legal:termination-review"
+        },
+        {
+          "name": "wage-hour-qa",
+          "description": "> Jurisdiction-aware wage/hour and employment Q&A \u2014 classification, overtime, meal/rest breaks, leave, final pay \u2014 answered for the specific state/country with the controlling rule researched and cited rather than stated from memory. Use when the user asks any employment law question, or says \"what's the rule in [state]\", \"is this exempt\", \"do we have to pay overtime for\", or \"can we classify this as\".",
+          "argument-hint": "[question]",
+          "id": "wage-hour-qa",
+          "command": "/employment-legal:wage-hour-qa"
+        },
+        {
+          "name": "worker-classification",
+          "description": "> Classify a proposed worker engagement \u2014 employee, IC, temp, or vendor \u2014 by running the applicable jurisdiction tests and flagging misclassification gaps between the intended arrangement and what the facts actually support. Prospective use only. Use when someone says \"we want to bring on a contractor\", \"is this a vendor or a temp\", \"how should we classify this person\", or describes a proposed working arrangement.",
+          "argument-hint": "[describe the proposed arrangement, or just start and I'll ask]",
+          "id": "worker-classification",
+          "command": "/employment-legal:worker-classification"
+        }
+      ],
+      "agents": [
+        {
+          "id": "leave-tracker",
+          "name": "Leave Tracker",
+          "path": "employment-legal/agents/leave-tracker.md"
+        }
+      ]
+    },
+    {
+      "id": "ip-legal",
+      "name": "Ip",
+      "description": "IP Counsel Plugin",
+      "skills": [
+        {
+          "name": "cease-desist",
+          "description": "> Draft a cease-and-desist letter (send mode) or triage one you received (receive mode). Use when asserting your rights against an infringer with a demand letter calibrated to your enforcement posture, or when an incoming C&D needs triage into a structured options memo with a recommendation.",
+          "argument-hint": "<--send | --receive> [context, counterparty, or path to incoming letter]",
+          "id": "cease-desist",
+          "command": "/ip-legal:cease-desist"
+        },
+        {
+          "name": "clearance",
+          "description": "> Trademark clearance first pass \u2014 knockout + similar-marks check producing a flag list, not a clearance opinion. Use when a new mark is proposed, when asked whether a mark is available or to run a knockout search, or when assessing likelihood-of-confusion factors before a full professional search. This skill never concludes a mark is clear.",
+          "argument-hint": "[describe the proposed mark, goods/services, and jurisdictions \u2014 or just the mark and I'll ask]",
+          "id": "clearance",
+          "command": "/ip-legal:clearance"
+        },
+        {
+          "name": "cold-start-interview",
+          "description": "> Run the cold-start interview to learn your IP practice and write your practice profile. Use on first install when the practice profile is missing or still contains placeholders, when re-onboarding with --redo, or when re-probing integrations with --check-integrations after connecting or disconnecting an MCP. This is the ONLY skill that should run on a fresh install.",
+          "argument-hint": "[--redo to re-run on an already-configured plugin] [--check-integrations to re-probe integrations only]",
+          "id": "cold-start-interview",
+          "command": "/ip-legal:cold-start-interview"
+        },
+        {
+          "name": "customize",
+          "description": "> Guided customization of your IP practice profile \u2014 change one thing without re-running the whole cold-start interview. Adjust risk posture, escalation contacts, portfolio scope, brand protection strategy, enforcement posture, clearance thresholds, OSS review rules, or matter workspace paths. Use when the user says \"change my [thing]\", \"update my profile\", \"edit my config\", or \"customize\".",
+          "argument-hint": "[section name, or describe what you want to change]",
+          "id": "customize",
+          "command": "/ip-legal:customize"
+        },
+        {
+          "name": "fto-triage",
+          "description": "> Freedom-to-operate triage \u2014 a structured first look at potentially blocking patents, not an FTO opinion. Use when a product, process, or feature is being evaluated for blocking patents, when asked whether anything stops a launch, or to build a claim-chart first pass against the most plausible patents before patent counsel review. This skill never concludes a product is clear to launch.",
+          "argument-hint": "[describe the product / process / feature and jurisdictions \u2014 or just the subject and I'll ask]",
+          "id": "fto-triage",
+          "command": "/ip-legal:fto-triage"
+        },
+        {
+          "name": "infringement-triage",
+          "description": "> Infringement triage across trademark, copyright, patent, and trade secret \u2014 a flag list with the factors cutting each way, not a finding. Use when assessing whether someone is infringing your IP or whether you might be infringing theirs, when a knockoff or copycat surfaces, or when deciding whether a matter is worth pursuing and how.",
+          "argument-hint": "[describe the facts and which right \u2014 or just the facts and I'll ask which right]",
+          "id": "infringement-triage",
+          "command": "/ip-legal:infringement-triage"
+        },
+        {
+          "name": "invention-intake",
+          "description": "> Invention disclosure first-pass screen \u2014 novelty, obviousness, \u00a7101 eligibility, bar dates, detectability, and strategic value. Use when an invention disclosure comes in and needs triage on whether to pursue a prior-art search and patent counsel review, investigate further, or decline.",
+          "argument-hint": "[paste or describe the invention disclosure \u2014 or just the title and I'll ask]",
+          "id": "invention-intake",
+          "command": "/ip-legal:invention-intake"
+        },
+        {
+          "name": "ip-clause-review",
+          "description": "> Review the IP clauses in an agreement \u2014 assignment, ownership, license grants, warranties, indemnities. Use when reviewing IP terms in employment, consulting, SOW, vendor, or licensing agreements, when asked to check the assignment language or license scope, or when an agreement with IP provisions is pasted or attached.",
+          "argument-hint": "[file path | Drive link | paste text]",
+          "id": "ip-clause-review",
+          "command": "/ip-legal:ip-clause-review"
+        },
+        {
+          "name": "matter-workspace",
+          "description": "> Manage matter workspaces \u2014 create, list, switch, close, or detach the active matter. Use in multi-client private practice to keep one client's context separate from another, or when a substantive skill needs to know which matter it's working in.",
+          "argument-hint": "<new | list | switch | close | none> [slug]",
+          "id": "matter-workspace",
+          "command": "/ip-legal:matter-workspace"
+        },
+        {
+          "name": "oss-review",
+          "description": "> Open source license compliance check for a dependency list, a single library, or outbound code. Use when reviewing a manifest, SBOM, or repo for copyleft obligations and license compatibility, when asked whether a library can ship, or when preparing code to be open-sourced.",
+          "argument-hint": "[file path to manifest / SBOM | package name | repo path | paste text]",
+          "id": "oss-review",
+          "command": "/ip-legal:oss-review"
+        },
+        {
+          "name": "portfolio",
+          "description": "> Track the IP portfolio \u2014 registrations, renewals, maintenance fees, and use declarations. Use when checking what's renewing, adding or updating an asset, recording a maintenance filing, or auditing the register for gaps, lapses, and use-in-commerce questions. Receives handoffs from prosecution and clearance work.",
+          "argument-hint": "[--report [--days N] | --add | --update | --audit]",
+          "id": "portfolio",
+          "command": "/ip-legal:portfolio"
+        },
+        {
+          "name": "takedown",
+          "description": "> Draft a DMCA takedown notice, triage one you received, or draft a \u00a7512(g) counter-notice. Use when asserting copyright through a \u00a7512(c)(3) takedown with the fair-use and perjury gates, when an incoming takedown needs triage into comply / counter / engage / ignore options, or when drafting a \u00a7512(g)(3) counter-notice with the consent-to-federal-jurisdiction gate.",
+          "argument-hint": "<--send | --respond | --counter> [context or path to incoming notice]",
+          "id": "takedown",
+          "command": "/ip-legal:takedown"
+        }
+      ],
+      "agents": [
+        {
+          "id": "ip-renewal-watcher",
+          "name": "Ip Renewal Watcher",
+          "path": "ip-legal/agents/ip-renewal-watcher.md"
+        }
+      ]
+    },
+    {
+      "id": "law-student",
+      "name": "Law Student",
+      "description": "Law Student Plugin",
+      "skills": [
+        {
+          "name": "bar-prep-questions",
+          "description": "> Bar prep questions \u2014 MBE or essay, targeted at your weak subjects and bar jurisdiction. Tracks misses and comes back to patterns. Use when the user says \"bar prep\", \"MBE questions\", \"practice essay\", or \"test me for the bar\".",
+          "argument-hint": "[subject, or --mbe / --essay / --session <n>]",
+          "id": "bar-prep-questions",
+          "command": "/law-student:bar-prep-questions"
+        },
+        {
+          "name": "case-brief",
+          "description": "> Brief a case in your preferred format. In drill-me mode, makes the student state the holding first. Use when the user says \"brief [case]\", \"what's the holding in\", \"case brief\", or pastes a case.",
+          "argument-hint": "[case name or citation, or paste the case]",
+          "id": "case-brief",
+          "command": "/law-student:case-brief"
+        },
+        {
+          "name": "cold-call-prep",
+          "description": "> Prep for a cold-call \u2014 predict the professor's likely questions and drill them Socratically, flagging where you're shaky so you know what to re-read before class. Use when the user says \"prep for class tomorrow\", \"cold call [case]\", \"what might [professor] ask on\", or points at assigned reading.",
+          "argument-hint": "[case name, or paste case text, or path to reading]",
+          "id": "cold-call-prep",
+          "command": "/law-student:cold-call-prep"
+        },
+        {
+          "name": "cold-start-interview",
+          "description": "> About-you interview and materials intake \u2014 classes, bar jurisdiction, learning style (drill-me vs explain-to-me), past outlines, graded essays, old exams, MBE sets, syllabi, papers. Use on a fresh install, when the user says \"set up\" or \"get started\", or with --check-integrations to re-probe connectors.",
+          "argument-hint": "[--redo] [--check-integrations]",
+          "id": "cold-start-interview",
+          "command": "/law-student:cold-start-interview"
+        },
+        {
+          "name": "customize",
+          "description": "> Guided customization of your law-student study profile \u2014 change one thing without re-running the whole cold-start interview. Adjust current classes, learning style, outline preferences, bar prep subjects, seed materials, or study session cadence. Use when the user says \"change my [thing]\", add a class\", \"update my profile\", \"new semester\", or \"customize\".",
+          "argument-hint": "[section name, or describe what you want to change]",
+          "id": "customize",
+          "command": "/law-student:customize"
+        },
+        {
+          "name": "exam-forecast",
+          "description": "> Analyze past exams from the same professor to surface patterns \u2014 subject weighting, recurring issue-spot traps, favored hypo types, policy-vs-doctrine mix \u2014 and forecast likely emphases for the upcoming exam. Use when the user says \"what's on the exam\", \"analyze past exams\", \"predict the exam\", or shares past exams.",
+          "argument-hint": "[class name, with past exams shared or paths to them]",
+          "id": "exam-forecast",
+          "command": "/law-student:exam-forecast"
+        },
+        {
+          "name": "flashcards",
+          "description": "> Generate or drill flashcards for black-letter memorization \u2014 Leitner-style buckets, per-subject markdown storage, drill mode with self-assessment. Use when the user says \"drill flashcards\", \"make flashcards from\", \"quiz me on cards\", or wants to memorize rules.",
+          "argument-hint": "[subject] [--generate | --drill | --review | --stats | --session <n>]",
+          "id": "flashcards",
+          "command": "/law-student:flashcards"
+        },
+        {
+          "name": "irac-practice",
+          "description": "> Grade an IRAC essay for structure, issue-spotting, rule accuracy, analysis depth, and organization. Does NOT rewrite the essay or show a model answer; tracks patterns across sessions. Use when the user says \"grade my IRAC\", check my essay\", or \"I wrote this, give me feedback\".",
+          "argument-hint": "[paste essay OR path to draft OR --generate-hypo]",
+          "id": "irac-practice",
+          "command": "/law-student:irac-practice"
+        },
+        {
+          "name": "legal-writing",
+          "description": "> Structural feedback on a legal writing draft (memo, brief, paper, exam essay) \u2014 organization, analysis depth, clarity, citation form. NEVER rewrites the draft. Use when the user says \"feedback on my memo\", \"read my draft\", or \"critique my brief\".",
+          "argument-hint": "[paste draft OR path to file]",
+          "id": "legal-writing",
+          "command": "/law-student:legal-writing"
+        },
+        {
+          "name": "outline-builder",
+          "description": "> Build or extend a course outline in your format, from class notes and casebook. Scaffolds \u2014 it does not write the outline for you. Use when the user says \"outline [subject]\", \"add to my outline\", \"build an outline from\", or points at class materials.",
+          "argument-hint": "[subject, or point at class notes/casebook section]",
+          "id": "outline-builder",
+          "command": "/law-student:outline-builder"
+        },
+        {
+          "name": "session",
+          "description": "> Run a focused N-question study session on a subject \u2014 MBE, essay, or flashcards. Tracks performance and updates the study plan. Use when the user says \"run me 10 questions on [subject]\", \"do a session on [subject]\", let's do 5 cards on [subject]\", or wants to drill a fixed number of questions and have the plan adapt.",
+          "argument-hint": "<subject> <n> [--mbe | --essay | --flashcards]",
+          "id": "session",
+          "command": "/law-student:session"
+        },
+        {
+          "name": "socratic-drill",
+          "description": "> Socratic drilling \u2014 it asks, you answer, it pushes back. Does NOT give you the answer until you've earned it. Use when the user says \"drill me on\", quiz me\", \"socratic\", \"test me on [subject]\", or wants to study actively.",
+          "argument-hint": "[subject or topic]",
+          "id": "socratic-drill",
+          "command": "/law-student:socratic-drill"
+        },
+        {
+          "name": "study-plan",
+          "description": "> Build or update a long-term bar prep (or exam prep) study plan \u2014 phases, subjects weighted by weakness, daily session schedule, adaptive to session history in study-plan.yaml. Use when the user says \"build a study plan\", plan my bar prep\", \"schedule my studying\", or \"how should I study for [X]\".",
+          "argument-hint": "[--build | --update | --status | --cram]",
+          "id": "study-plan",
+          "command": "/law-student:study-plan"
+        }
+      ],
+      "agents": []
+    },
+    {
+      "id": "legal-builder-hub",
+      "name": "Legal Builder Hub",
+      "description": "Legal Builder Hub Plugin",
+      "skills": [
+        {
+          "name": "auto-updater",
+          "description": "> Check installed community skills for updates. Shows a diff and requires explicit approval before applying. Use when the user says \"check for updates\", \"update my skills\", \"anything new for my installed skills\", or when invoked from the registry-sync agent.",
+          "argument-hint": "[--apply to update all, otherwise notify only]",
+          "id": "auto-updater",
+          "command": "/legal-builder-hub:auto-updater"
+        },
+        {
+          "name": "cold-start-interview",
+          "description": "> Practice-profile interview that recommends and installs a starter pack of community legal skills. This IS the cold start for the whole ecosystem \u2014 it asks what kind of lawyer you are and recommends what to install first. Use on fresh install, when the user says \"get me started\" or \"what should I install\", or to re-run the integration-availability check after adding or removing an MCP connector.",
+          "argument-hint": "[--redo] [--check-integrations]",
+          "id": "cold-start-interview",
+          "command": "/legal-builder-hub:cold-start-interview"
+        },
+        {
+          "name": "customize",
+          "description": "> Guided customization of your Legal Builder Hub profile \u2014 change one thing without re-running the whole cold-start interview. Adjust practice profile, installed starter pack, watched registries, update preferences, or QA strictness. Use when the user says \"change my [thing]\", \"add a registry\", update my profile\", \"edit my config\", or \"customize\".",
+          "argument-hint": "[section name, or describe what you want to change]",
+          "id": "customize",
+          "command": "/legal-builder-hub:customize"
+        },
+        {
+          "name": "disable",
+          "description": "> Disable a community skill installed through the hub without removing its files. Use when the user wants to temporarily quiet a community skill (\"disable [skill]\"), stop its hooks from firing while keeping its config, or re-enable a previously disabled skill.",
+          "argument-hint": "[skill name]",
+          "id": "disable",
+          "command": "/legal-builder-hub:disable"
+        },
+        {
+          "name": "registry-browser",
+          "description": "> Search watched registries for community legal skills, showing matches with descriptions and offering to show the full SKILL.md before install. Use when the user says \"browse\", \"search skills\", \"find a skill for\", \"what's out there for\", or wants to add a new registry to the watchlist.",
+          "argument-hint": "[search query]",
+          "id": "registry-browser",
+          "command": "/legal-builder-hub:registry-browser"
+        },
+        {
+          "name": "related-skills-surfacer",
+          "description": "> Suggest community skills based on recent activity in other plugins. Checks whether the community has built something relevant to a task and mentions it once, non-intrusively. Use when the user says \"is there a community skill for this\", \"what else is out there\", or asks for skill recommendations; also runs passively as part of other plugins' workflows.",
+          "id": "related-skills-surfacer",
+          "command": "/legal-builder-hub:related-skills-surfacer"
+        },
+        {
+          "name": "skill-installer",
+          "description": "> Install a community skill from a watched registry. Reads the allowlist first, fetches, shows the RAW SKILL.md (not just a summary), runs structural trust checks, runs skills-qa, and only writes files after explicit user approval. Use when the user says \"install [skill]\", picks install from browse, or provides a direct skill URL.",
+          "argument-hint": "[skill name or registry URL]",
+          "id": "skill-installer",
+          "command": "/legal-builder-hub:skill-installer"
+        },
+        {
+          "name": "skill-manager",
+          "description": "> Reference: detailed uninstall, disable, and re-enable workflows for community skills installed via the legal builder hub. Safe by default \u2014 refuses to touch first-party plugin skills, confirms before removing files, and logs every action. Loaded by the /legal-builder-hub:uninstall and /legal-builder-hub:disable skills.",
+          "user-invocable": "false",
+          "id": "skill-manager",
+          "command": "/legal-builder-hub:skill-manager"
+        },
+        {
+          "name": "skills-qa",
+          "description": "> Evaluate a skill against the Legal Skill Design Framework \u2014 thirteen design parameters (including trust-surface, freshness, schema validation, and conflict detection), three legal failure modes, and a three-band verdict (Ready / Some Concern / Material Concerns). Use when deciding whether to trust a community skill before installing it, before deploying a first-party skill to your team, or whenever the user asks \"should I trust this?\" or is this skill well-designed?\". Runs automatically as part of /legal-builder-hub:skill-installer.",
+          "argument-hint": "[skill path | SKILL.md path | paste content]",
+          "id": "skills-qa",
+          "command": "/legal-builder-hub:skills-qa"
+        },
+        {
+          "name": "uninstall",
+          "description": "> Uninstall a community skill that was installed via the hub. Confirms before deleting files, refuses to touch first-party plugin skills, and logs every action. Use when the user wants to fully remove a community skill (\"uninstall [skill]\", \"remove this skill\") rather than just disable it.",
+          "argument-hint": "[skill name]",
+          "id": "uninstall",
+          "command": "/legal-builder-hub:uninstall"
+        }
+      ],
+      "agents": [
+        {
+          "id": "registry-sync",
+          "name": "Registry Sync",
+          "path": "legal-builder-hub/agents/registry-sync.md"
+        }
+      ]
+    },
+    {
+      "id": "legal-clinic",
+      "name": "Legal Clinic",
+      "description": "Claude for Law School Clinics",
+      "skills": [
+        {
+          "name": "build-guide",
+          "description": "> Help a clinic supervisor author a practice-area guide that configures how student-facing skills behave \u2014 intake questions, pedagogy posture (assist / guide / teach), review gates, cross-plugin checks, and local rules. Use when a supervising attorney wants to build or revise a per-practice-area guide, tune how the clinic skills behave for their clinic type, or set their teaching philosophy as plugin configuration.",
+          "argument-hint": "[optional: practice area \u2014 e.g., 'immigration', 'housing']",
+          "id": "build-guide",
+          "command": "/legal-clinic:build-guide"
+        },
+        {
+          "name": "client-comms-log",
+          "description": "> Log a client communication \u2014 call, email, text, letter, in-person, voicemail. Append-only per-case record with dated entries, direction, medium, summary, action items. Works alongside /client-letter and /status client. Use when logging a call or client email, reviewing a communication log, or asking what did we tell [client] last time\".",
+          "argument-hint": "[case-id] [--add (default) | --read | --summary | --patterns]",
+          "id": "client-comms-log",
+          "command": "/legal-clinic:client-comms-log"
+        },
+        {
+          "name": "client-intake",
+          "description": "> Structured intake \u2014 practice-area templates, cross-area issue spotting, conflict flags, and triage classification. Produces a formatted case summary the student analyzes and the professor reviews. Does NOT decide case acceptance. Use when starting a new client intake, running an intake interview, or writing up a new client's situation.",
+          "argument-hint": "[optional: practice area hint]",
+          "id": "client-intake",
+          "command": "/legal-clinic:client-intake"
+        },
+        {
+          "name": "client-letter",
+          "description": "> Routine client correspondence from templates \u2014 appointment confirmations, document requests, brief \"we filed it\" updates. Plain language, required elements, supervision routing. NOT substantive advice. Use when a student needs to send routine correspondence, an appointment confirmation, a document request letter, or a brief status note to a client.",
+          "argument-hint": "[appointment | doc-request | update]",
+          "id": "client-letter",
+          "command": "/legal-clinic:client-letter"
+        },
+        {
+          "name": "cold-start-interview",
+          "description": "> Professor's one-time clinic setup \u2014 practice areas, jurisdiction, supervision style (formal review queue / configurable flags / lighter-touch), and handbook/rules upload. Writes CLAUDE.md so every other skill and every student who runs /ramp reads from the same clinic context. Use on fresh install, when CLAUDE.md has placeholders, when re-doing setup with --redo, or when re-checking integrations with --check-integrations.",
+          "argument-hint": "[--redo] [--check-integrations]",
+          "id": "cold-start-interview",
+          "command": "/legal-clinic:cold-start-interview"
+        },
+        {
+          "name": "customize",
+          "description": "> Guided customization of your legal clinic profile \u2014 change one thing without re-running the whole cold-start interview. Adjust clinic profile, jurisdiction, supervision style, practice-area templates, semester configuration, or output safeguards. Use when the user says \"change my [thing]\", \"new semester\", \"add a practice area\", \"update my config\", or customize\".",
+          "argument-hint": "[section name, or describe what you want to change]",
+          "id": "customize",
+          "command": "/legal-clinic:customize"
+        },
+        {
+          "name": "deadlines",
+          "description": "> Track case deadlines \u2014 add, cross-case rollup report, update, complete, close. Warns at configurable thresholds (default 14/7/3/1 days); overdue items stay flagged until resolved. The operational record for a clinic workload. Use when a student or supervisor needs to add a deadline, ask what's due this week, get a deadline report, or update a case deadline.",
+          "argument-hint": "[--add | --report (default) | --update [id] | --complete [id] | --close [id] | --horizon=N]",
+          "id": "deadlines",
+          "command": "/legal-clinic:deadlines"
+        },
+        {
+          "name": "draft",
+          "description": "> First draft of a common clinic document \u2014 practice-area templates (asylum applications, eviction answers, protective order petitions, demand letters), jurisdiction-aware formatting, explicitly a starting point requiring student analysis and attorney review. Use when a student needs a first draft of a motion, letter, petition, declaration, or other clinic document.",
+          "argument-hint": "[document type \u2014 e.g., 'eviction-answer', 'asylum-declaration', 'demand-letter']",
+          "id": "draft",
+          "command": "/legal-clinic:draft"
+        },
+        {
+          "name": "form-generation",
+          "description": "> Reference: DEPRECATED \u2014 use `/draft` instead. This skill has been folded into the draft skill, which handles practice-area document generation including form population. Kept as a redirect for migration.",
+          "user-invocable": "false",
+          "id": "form-generation",
+          "command": "/legal-clinic:form-generation"
+        },
+        {
+          "name": "memo",
+          "description": "> IRAC-scaffolded case analysis memo with research gaps flagged \u2014 the scaffold, not the analysis. Rule blocks are RESEARCH NEEDED, Application is STUDENT ANALYSIS prompts, Conclusion is blank. Use when a student needs to scaffold a case analysis memo, write up their analysis, or build an IRAC memo for a case.",
+          "argument-hint": "[optional: specific issue to focus]",
+          "id": "memo",
+          "command": "/legal-clinic:memo"
+        },
+        {
+          "name": "plain-language-letters",
+          "description": "> Reference: DEPRECATED \u2014 use `/client-letter` for routine correspondence or `/status client` for substantive updates. Split into two more focused skills during the v2 rebuild. Kept as a redirect for migration.",
+          "user-invocable": "false",
+          "id": "plain-language-letters",
+          "command": "/legal-clinic:plain-language-letters"
+        },
+        {
+          "name": "ramp",
+          "description": "> Student semester onboarding \u2014 clinic procedures, tool walkthrough, practice exercises before real cases. Reads the handbook the professor uploaded at setup and teaches it interactively. Use when a new clinic student says onboard me\", \"I'm new to the clinic\", \"getting started\", or at the start of each semester; pass --card for the one-page reference.",
+          "argument-hint": "[--card for the one-page reference]",
+          "id": "ramp",
+          "command": "/legal-clinic:ramp"
+        },
+        {
+          "name": "research-start",
+          "description": "> Research roadmap for a legal issue \u2014 statutes to check, case law areas to investigate, regulatory frameworks, Westlaw search terms. Leads and frameworks, NOT authoritative citations; students verify and develop everything. Use when a student asks where to start researching, wants a research roadmap for an issue, or needs gaps identified in existing research.",
+          "argument-hint": "[legal issue]",
+          "id": "research-start",
+          "command": "/legal-clinic:research-start"
+        },
+        {
+          "name": "semester-handoff",
+          "description": "> End-of-semester case handoff memos \u2014 the mirror of /ramp. Produces per-case transition memos and a cohort summary so the departing cohort hands work to the incoming cohort cleanly. Reads deadlines, client-comms, and case history. Use when the professor or departing students need to wrap up the semester, build transition memos, or offboard a graduating/withdrawing student.",
+          "argument-hint": "[--semester=YYYY-term (default: current)] [--case=[case_id] (for a single case)]",
+          "id": "semester-handoff",
+          "command": "/legal-clinic:semester-handoff"
+        },
+        {
+          "name": "status",
+          "description": "> Case status summary by audience \u2014 client-facing (plain language), internal (for the professor), or court-ready (formal caption format per local rules). Same facts, different framing and depth. Use when a student needs to update the client, brief the professor, or prepare a court status report.",
+          "argument-hint": "[client | internal | court]",
+          "id": "status",
+          "command": "/legal-clinic:status"
+        },
+        {
+          "name": "supervisor-review-queue",
+          "description": "> Professor's review queue \u2014 student output waits here for professor approval before going to clients or courts. Only active if \"formal review queue supervision style was chosen at setup; otherwise dormant. Use when the professor wants to see what's waiting for review, approve, edit-then-approve, or return an item.",
+          "argument-hint": "[--approve ID | --return ID 'note' | --edit ID]",
+          "id": "supervisor-review-queue",
+          "command": "/legal-clinic:supervisor-review-queue"
+        }
+      ],
+      "agents": []
+    },
+    {
+      "id": "litigation-legal",
+      "name": "Litigation",
+      "description": "Litigation Counsel Plugin",
+      "skills": [
+        {
+          "name": "brief-section-drafter",
+          "description": "Draft a brief section in house style, consistent with the case theory \u2014 every fact cited, every case checked, every argument tied to the theory. Use when the user says \"draft the [section]\", \"write the statement of facts\", \"argument section on [issue]\", or needs a first draft of a brief section.",
+          "argument-hint": "[section \\u2014 e.g., 'statement of facts', 'argument II']",
+          "id": "brief-section-drafter",
+          "command": "/litigation-legal:brief-section-drafter"
+        },
+        {
+          "name": "chronology",
+          "description": "Build or update a chronology from declared document sources and uploads \u2014 dated events extracted, de-duped, and tagged by significance per the matter theory. Use when the user asks to build a chronology or timeline from a production or matter file, says \"chron from the production\" or \"what happened when\", or needs a working, statement-of-facts, or witness-specific timeline.",
+          "argument-hint": "[slug] [--format=working|sof|witness-[name]]",
+          "id": "chronology",
+          "command": "/litigation-legal:chronology"
+        },
+        {
+          "name": "claim-chart",
+          "description": "Build or review an element chart \u2014 a patent claim chart (infringement, invalidity, or review) or a civil element chart for any cause of action or defense \u2014 with every cell pin-cited and gap detection as the priority output. Use when the user asks for a claim chart, element chart, proof chart, infringement or invalidity contention, element-by-element mapping, or asks \"what are we missing to prove [claim]\".",
+          "argument-hint": "[--patent | --civil] [--infringement | --invalidity | --review] [--claim <n>] [--count <name>] [--target <slug>]",
+          "id": "claim-chart",
+          "command": "/litigation-legal:claim-chart"
+        },
+        {
+          "name": "cold-start-interview",
+          "description": "House cold-start for the litigation plugin \u2014 branches by role (in-house, firm associate, solo) and side (plaintiff, defense, both), captures risk calibration, landscape, and house style, and writes the practice profile CLAUDE.md. Use on a fresh install, when the user wants to set up or redo the practice profile, or to re-check available integrations.",
+          "argument-hint": "[--redo | --check-integrations]",
+          "id": "cold-start-interview",
+          "command": "/litigation-legal:cold-start-interview"
+        },
+        {
+          "name": "customize",
+          "description": "> Guided customization of your litigation practice profile \u2014 change one thing without re-running the whole cold-start interview. Adjust practice role, side (plaintiff / defense / mixed), risk calibration, landscape, house style, escalation contacts, severity vocabulary, or matter workspace paths. Use when the user says \"change my [thing]\", \"update my profile\", edit my config\", or \"customize\".",
+          "argument-hint": "[section name, or describe what you want to change]",
+          "id": "customize",
+          "command": "/litigation-legal:customize"
+        },
+        {
+          "name": "demand-draft",
+          "description": "Draft a demand letter from a completed intake, gated on a privilege / FRE 408 / waiver / admission checklist, with a .docx output, post-send checklist, and an offer to create a matter. Use when the user says \"draft the demand\", \"write the [type] letter\", or has a finished demand intake ready to turn into a sendable draft.",
+          "argument-hint": "[slug] [--skip-gate] [--version=N]",
+          "id": "demand-draft",
+          "command": "/litigation-legal:demand-draft"
+        },
+        {
+          "name": "demand-intake",
+          "description": "Pre-drafting context gathering for a demand letter \u2014 parties, facts, basis, leverage, BATNA, and privilege filters \u2014 written to a structured intake.md the demand-draft skill reads. Use when the user wants to prep a demand letter, run intake before drafting, or capture context for a payment demand, breach/cure notice, cease-and-desist, employment separation, or preservation demand.",
+          "argument-hint": "[title] [--full]",
+          "id": "demand-intake",
+          "command": "/litigation-legal:demand-intake"
+        },
+        {
+          "name": "demand-received",
+          "description": "Triage an inbound demand letter \u2014 extract fields, cross-check the portfolio, assess merit, present response options with a recommendation, and hand off to matter-intake or demand-intake if escalation is warranted. Use when the user says \"we got a demand letter\", \"triage this demand\", or shares an incoming demand to evaluate.",
+          "argument-hint": "[path-to-incoming] [--slug=custom-slug]",
+          "id": "demand-received",
+          "command": "/litigation-legal:demand-received"
+        },
+        {
+          "name": "deposition-prep",
+          "description": "Build a deposition outline for a witness \u2014 pull their documents from the eDiscovery platform, organize topics around the case theory, and surface impeachment material. Use when the user says \"depo prep for [witness]\", \"build a depo outline\", or \"prepare for [name]'s deposition\".",
+          "argument-hint": "[witness name]",
+          "id": "deposition-prep",
+          "command": "/litigation-legal:deposition-prep"
+        },
+        {
+          "name": "legal-hold",
+          "description": "Issue, refresh, release, or report on legal holds \u2014 drafts the hold notice as .docx, updates legal_hold fields in _log.yaml, and calendars the next refresh. Use when the user says \"issue a hold\", \"refresh hold\", \"release hold\", or asks for a portfolio-wide hold status report.",
+          "argument-hint": "[slug] [--issue | --refresh | --release | --status]",
+          "id": "legal-hold",
+          "command": "/litigation-legal:legal-hold"
+        },
+        {
+          "name": "matter-briefing",
+          "description": "Deep briefing on one matter \u2014 current posture, what's changed, next deadline, open questions, and a risk re-assessment check, ready before a GC update or outside counsel call. Use when the user says \"brief me on [matter]\", \"where are we on [matter]\", or needs a read on a specific matter.",
+          "argument-hint": "[slug]",
+          "id": "matter-briefing",
+          "command": "/litigation-legal:matter-briefing"
+        },
+        {
+          "name": "matter-close",
+          "description": "Close a matter \u2014 capture outcome, final exposure, and lessons, then archive it out of the active portfolio without deleting the record. Use when the user wants to close a matter, says \"[matter] is done\", or needs to record a settlement, dismissal, judgment, withdrawal, or consolidation outcome.",
+          "argument-hint": "[slug]",
+          "id": "matter-close",
+          "command": "/litigation-legal:matter-close"
+        },
+        {
+          "name": "matter-intake",
+          "description": "Intake a new matter \u2014 uniform questions covering identification, conflicts, source, risk triage, materiality, outside counsel, owners, legal hold, and key dates; writes matter.md and history.md and appends a structured row to _log.yaml. Use when the user says \"new matter\", \"intake this matter\", or wants to bring a new matter into the portfolio.",
+          "argument-hint": "[optional matter name]",
+          "id": "matter-intake",
+          "command": "/litigation-legal:matter-intake"
+        },
+        {
+          "name": "matter-update",
+          "description": "Append a dated event to a matter's history file and refresh the log row \u2014 captures new developments, status changes, risk re-assessments, deadline shifts, and settlement authority changes. Use when the user wants to log an update on a matter, note a development, or record a status change against the portfolio.",
+          "argument-hint": "[slug] [brief event description]",
+          "id": "matter-update",
+          "command": "/litigation-legal:matter-update"
+        },
+        {
+          "name": "matter-workspace",
+          "description": "Manage matter workspaces for multi-client practices \u2014 create, list, switch, close, or detach the active matter. Use when the user wants to create a new matter workspace, switch the active matter, list matters, archive a matter, or work at practice-level only without an active matter.",
+          "argument-hint": "<new | list | switch | close | none> [slug]",
+          "id": "matter-workspace",
+          "command": "/litigation-legal:matter-workspace"
+        },
+        {
+          "name": "oc-status",
+          "description": "Generate weekly status-request email drafts to outside counsel across the active portfolio \u2014 markdown per matter, plus Gmail drafts when the MCP is available. Use when the user asks for OC status requests, weekly outside counsel check-ins, or wants per-matter status emails drafted from the portfolio log.",
+          "argument-hint": "[--all | --slug=foo | --no-gmail]",
+          "id": "oc-status",
+          "command": "/litigation-legal:oc-status"
+        },
+        {
+          "name": "portfolio-status",
+          "description": "Roll up the portfolio from _log.yaml \u2014 risk distribution, upcoming deadlines, stale matters, materiality totals, stage distribution, and flagged anomalies. Use when the user asks \"where do we stand\", \"how many open matters\", or wants a portfolio rollup or status across all active matters.",
+          "argument-hint": "[--all | --risk=high | --stale]",
+          "id": "portfolio-status",
+          "command": "/litigation-legal:portfolio-status"
+        },
+        {
+          "name": "privilege-log-review",
+          "description": "First-pass privilege log review \u2014 make the obvious privilege calls and flag the hard ones for attorney review without making close calls. Use when the user says \"review the privilege log\", \"priv log\", \"check privilege on these docs\", or has a log to QA before production.",
+          "argument-hint": "[log file, or document set]",
+          "id": "privilege-log-review",
+          "command": "/litigation-legal:privilege-log-review"
+        },
+        {
+          "name": "subpoena-triage",
+          "description": "Triage a subpoena served on the company \u2014 classify it, analyze scope/burden/privilege, cross-check the portfolio, and produce an objections framework, compliance plan, and deadline calendar. Use when the user says \"we got a subpoena\", \"served with a subpoena\", or shares a subpoena, CID, or third-party document request to evaluate.",
+          "argument-hint": "[path-to-subpoena] [--slug=custom-slug]",
+          "id": "subpoena-triage",
+          "command": "/litigation-legal:subpoena-triage"
+        }
+      ],
+      "agents": [
+        {
+          "id": "docket-watcher",
+          "name": "Docket Watcher",
+          "path": "litigation-legal/agents/docket-watcher.md"
+        }
+      ]
+    },
+    {
+      "id": "privacy-legal",
+      "name": "Privacy",
+      "description": "Privacy Counsel Plugin",
+      "skills": [
+        {
+          "name": "cold-start-interview",
+          "description": "> Run the cold-start interview \u2014 learns your privacy practice and writes CLAUDE.md from your policy, DPA template, and a reference PIA. Use on first run, when CLAUDE.md is missing or has placeholders, or when the user says \"set up the privacy plugin\", \"onboard me\", \"configure privacy\", or wants to re-run the interview or re-check integrations.",
+          "argument-hint": "[--redo to re-run] [--check-integrations to re-probe integrations only]",
+          "id": "cold-start-interview",
+          "command": "/privacy-legal:cold-start-interview"
+        },
+        {
+          "name": "customize",
+          "description": "> Guided customization of your privacy practice profile \u2014 change one thing without re-running the whole cold-start interview. Adjust risk posture, escalation contacts, DPA playbook, privacy policy commitments, PIA house style, DSAR process, or matter workspace paths. Use when the user says change my [thing]\", \"update my profile\", \"edit my playbook\", or customize\".",
+          "argument-hint": "[section name, or describe what you want to change]",
+          "id": "customize",
+          "command": "/privacy-legal:customize"
+        },
+        {
+          "name": "dpa-review",
+          "description": "> Review a Data Processing Agreement against your DPA playbook \u2014 auto-detects whether you're processor or controller and applies the right half of the playbook. Use when the user says \"review this DPA\", \"check this data processing addendum\", customer sent their DPA\", \"is this DPA okay\", or attaches a DPA.",
+          "argument-hint": "[file | Drive link | paste text]",
+          "id": "dpa-review",
+          "command": "/privacy-legal:dpa-review"
+        },
+        {
+          "name": "dsar-response",
+          "description": "> Walk through a Data Subject Access Request (or deletion, portability, correction request) and draft the response \u2014 verify identity, locate data system-by-system, assess exemptions, draft the acknowledgment and substantive response letters. Use when a DSAR comes in, the user pastes an access/deletion/portability/correction request, or says \"DSAR came in\", \"access request\", \"right to be forgotten\", or someone wants their data\".",
+          "argument-hint": "[paste the request, or describe it]",
+          "id": "dsar-response",
+          "command": "/privacy-legal:dsar-response"
+        },
+        {
+          "name": "matter-workspace",
+          "description": "> Manage matter workspaces \u2014 create, list, switch, close, or detach (practice-level). Keeps one client or engagement's context separate from every other for multi-client practitioners. Use when the user wants to open a new matter, switch matters, list matters, close/archive a matter, or work at practice-level only.",
+          "argument-hint": "<new | list | switch | close | none> [slug]",
+          "id": "matter-workspace",
+          "command": "/privacy-legal:matter-workspace"
+        },
+        {
+          "name": "pia-generation",
+          "description": "> Generate a Privacy Impact Assessment in house format for a new feature, product, or processing activity, using the structure learned from your seed PIA. Use when the user says \"write a PIA\", \"privacy impact assessment for\", \"do we need a PIA for this\", \"privacy review this feature\", or describes a new data processing activity.",
+          "argument-hint": "[feature name or description]",
+          "id": "pia-generation",
+          "command": "/privacy-legal:pia-generation"
+        },
+        {
+          "name": "policy-monitor",
+          "description": "> Keep the privacy policy current with practice. Two modes: weekly sweep of saved PIAs, DPA reviews, and triage results to find policy drift; or direct query for a proposed new practice. Use when the user asks \"does our policy cover this\", we want to start doing X \u2014 does the policy need updating\", \"run the policy monitor\", \"policy sweep\", or wants to find where the privacy policy no longer matches what the team actually does.",
+          "argument-hint": "[describe a proposed new practice \u2014 or omit / use --sweep for crawl mode]",
+          "id": "policy-monitor",
+          "command": "/privacy-legal:policy-monitor"
+        },
+        {
+          "name": "reg-gap-analysis",
+          "description": "> Diff a new or changed regulation against current privacy policy and practice \u2014 outputs a gap list and a remediation plan with owners and dates. Use when a new reg drops, the user asks \"does [regulation] affect us\", \"gap analysis for [state privacy law]\", \"compliance check against [reg]\", or pastes regulatory text.",
+          "argument-hint": "[regulation name, or paste reg text/summary]",
+          "id": "reg-gap-analysis",
+          "command": "/privacy-legal:reg-gap-analysis"
+        },
+        {
+          "name": "use-case-triage",
+          "description": "> Quickly determine whether a processing activity needs a PIA, a mandatory GDPR DPIA, or can proceed \u2014 surfaces privacy policy conflicts and routes to the right next step. Use when the user asks \"does this need a PIA\", \"triage this feature\", privacy check on X\", \"is this okay from a privacy perspective\", or describes a new data processing activity, product feature, or vendor relationship.",
+          "argument-hint": "[describe the data processing activity or feature]",
+          "id": "use-case-triage",
+          "command": "/privacy-legal:use-case-triage"
+        }
+      ],
+      "agents": []
+    },
+    {
+      "id": "product-legal",
+      "name": "Product",
+      "description": "Product Counsel Plugin",
+      "skills": [
+        {
+          "name": "cold-start-interview",
+          "description": "> Cold-start interview \u2014 connects to your launch tracker, reads past reviews, learns your risk calibration. Use on fresh install, when onboarding product counsel, or when the plugin config has placeholders. Run with --redo to re-interview, or --check-integrations to re-probe connectors only.",
+          "argument-hint": "[--redo] [--check-integrations to re-probe integrations only]",
+          "id": "cold-start-interview",
+          "command": "/product-legal:cold-start-interview"
+        },
+        {
+          "name": "customize",
+          "description": "> Guided customization of your product counsel practice profile \u2014 change one thing without re-running the whole cold-start interview. Adjust risk calibration, escalation contacts, launch review framework, marketing claims posture, or matter workspace paths. Use when the user says change my [thing]\", \"update my profile\", \"edit my framework\", \"retune my calibration\", or \"customize\".",
+          "argument-hint": "[section name, or describe what you want to change]",
+          "id": "customize",
+          "command": "/product-legal:customize"
+        },
+        {
+          "name": "feature-risk-assessment",
+          "description": "> Deeper risk assessment for a single feature or product area when the launch review found something that needs more than a line item. Structured analysis: what could go wrong, how likely, how bad, what mitigates it. Use when user says \"deep dive on this risk\", \"risk assessment for [feature]\", \"what could go wrong with\", or when launch-review flags a novel issue.",
+          "id": "feature-risk-assessment",
+          "command": "/product-legal:feature-risk-assessment"
+        },
+        {
+          "name": "is-this-a-problem",
+          "description": "> Fast \"is this a problem?\" answer for the quick Slack question \u2014 pattern-matches against your calibration. Use when the user says \"is this a problem\", \"quick question\", \"can we do X\", \"do I need legal review for\", \"sanity check\", or pastes a PM's question that needs a same-minute fine / needs a look / hold call.",
+          "argument-hint": "[the question]",
+          "id": "is-this-a-problem",
+          "command": "/product-legal:is-this-a-problem"
+        },
+        {
+          "name": "launch-review",
+          "description": "> Full launch review against your framework and risk calibration. Use when the user says \"review this launch\", \"legal review for [feature]\", \"can we ship this\", \"what are the legal issues with [product]\", or references a launch tracker ticket or PRD that needs a category-by-category review memo.",
+          "argument-hint": "[PRD file | Drive link | tracker ticket ID]",
+          "id": "launch-review",
+          "command": "/product-legal:launch-review"
+        },
+        {
+          "name": "marketing-claims-review",
+          "description": "> Review marketing copy for claims that need substantiation, reframing, or cutting. Use when the user says \"review this marketing copy\", \"check these claims\", can we say this\", \"is this puffery or a problem\", or pastes marketing content (landing pages, emails, ads, taglines).",
+          "argument-hint": "[paste copy, or file path]",
+          "id": "marketing-claims-review",
+          "command": "/product-legal:marketing-claims-review"
+        },
+        {
+          "name": "matter-workspace",
+          "description": "> Manage matter workspaces \u2014 new, list, switch, close, or detach (practice-level). Use when working across multiple clients or matters in private practice and you need to create, list, switch, close, or detach the active matter so context from one engagement doesn't leak into another.",
+          "argument-hint": "<new | list | switch | close | none> [slug]",
+          "id": "matter-workspace",
+          "command": "/product-legal:matter-workspace"
+        }
+      ],
+      "agents": [
+        {
+          "id": "launch-watcher",
+          "name": "Launch Watcher",
+          "path": "product-legal/agents/launch-watcher.md"
+        }
+      ]
+    },
+    {
+      "id": "regulatory-legal",
+      "name": "Regulatory",
+      "description": "Regulatory Counsel Plugin",
+      "skills": [
+        {
+          "name": "cold-start-interview",
+          "description": "Cold-start interview \u2014 builds your watchlist, indexes the policy library, and learns your materiality threshold so the monitor surfaces signal instead of noise. Use on fresh install, when reconfiguring (--redo), or when re-checking what connectors are actually responding (--check-integrations).",
+          "argument-hint": "[--redo | --check-integrations]",
+          "id": "cold-start-interview",
+          "command": "/regulatory-legal:cold-start-interview"
+        },
+        {
+          "name": "comments",
+          "description": "Review open NPRM comment periods, log decisions, track deadlines. Use when an NPRM has a comment window open and you need to surface deadlines, decide whether to file, or record a filing / not-filing / waived decision (--decide CMT-ID).",
+          "argument-hint": "[optional: --decide CMT-ID]",
+          "id": "comments",
+          "command": "/regulatory-legal:comments"
+        },
+        {
+          "name": "customize",
+          "description": "> Guided customization of your regulatory practice profile \u2014 change one thing without re-running the whole cold-start interview. Adjust watched regulators, policy library index, materiality threshold, gap response process, feed configuration, or matter workspace paths. Use when the user says \"change my [thing]\", \"add a regulator\", \"update my watchlist\", \"edit my threshold\", or \"customize\".",
+          "argument-hint": "[section name, or describe what you want to change]",
+          "id": "customize",
+          "command": "/regulatory-legal:customize"
+        },
+        {
+          "name": "gap-surfacer",
+          "description": "> Reference: shared gap- and comment-tracker framework backing /regulatory-legal:gaps and /regulatory-legal:comments. Tracks open policy gaps with remediation status, ingests gaps from policy-diff, surfaces what's open and aging, routes to owners, and notifies gap owners via Slack with per-send confirmation. Loaded by the gaps and comments skills before doing substantive work.",
+          "user-invocable": "false",
+          "id": "gap-surfacer",
+          "command": "/regulatory-legal:gap-surfacer"
+        },
+        {
+          "name": "gaps",
+          "description": "Open gaps tracker \u2014 what's flagged and not yet closed. Use when the user asks \"what gaps are open\", \"gap tracker\", \"remediation status\", or wants to close (--close GAP-ID) or risk-accept (--accept GAP-ID) a tracked gap.",
+          "argument-hint": "[optional: --close GAP-ID | --accept GAP-ID]",
+          "id": "gaps",
+          "command": "/regulatory-legal:gaps"
+        },
+        {
+          "name": "matter-workspace",
+          "description": "Manage matter workspaces \u2014 create, list, switch, close, or detach the active matter (practice-level). Use when working across multiple clients or matters and you need to keep one engagement's context separate from another, or when a substantive skill needs to know which matter it's working in.",
+          "argument-hint": "<new | list | switch | close | none> [slug]",
+          "id": "matter-workspace",
+          "command": "/regulatory-legal:matter-workspace"
+        },
+        {
+          "name": "policy-diff",
+          "description": "Diff a specific regulatory change against the indexed policy library. Use when a reg has changed and you need to know which policies it touches and what the gap is, when the user says \"diff this reg against our policies\", \"which policy does this affect\", or \"gap analysis\", or when reg-feed-watcher hands off a material item.",
+          "argument-hint": "[reg name, or paste reg text/summary]",
+          "id": "policy-diff",
+          "command": "/regulatory-legal:policy-diff"
+        },
+        {
+          "name": "policy-redraft",
+          "description": "Produce a proposed marked-up policy redraft that closes a gap found by /regulatory-legal:gaps or /regulatory-legal:policy-diff. A first draft for internal review \u2014 not for direct application to approved policy documents. Use when the user says \"redraft the policy\", \"draft the policy fix\", \"mark up the policy\", or when gap-surfacer hands off a gap for drafting.",
+          "argument-hint": "[GAP-ID or gap description]",
+          "id": "policy-redraft",
+          "command": "/regulatory-legal:policy-redraft"
+        },
+        {
+          "name": "reg-feed-watcher",
+          "description": "Check regulatory feeds now and report what's new since the last check, filtered by your materiality threshold. Use when the user says \"check the feeds\", \"what's new\", \"regulatory update\", when running from the scheduled agent, or when manually pasting a regulatory development for classification and diff.",
+          "argument-hint": "[optional: --since DATE]",
+          "id": "reg-feed-watcher",
+          "command": "/regulatory-legal:reg-feed-watcher"
+        }
+      ],
+      "agents": [
+        {
+          "id": "reg-change-monitor",
+          "name": "Reg Change Monitor",
+          "path": "regulatory-legal/agents/reg-change-monitor.md"
+        }
+      ]
+    }
+  ]
+}
